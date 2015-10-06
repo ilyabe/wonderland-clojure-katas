@@ -22,3 +22,10 @@
            (decipher "opkyfipmfmwcvqoklyhxywgeecpvhelzg" "thequickbrownfoxjumpsoveralazydog")))
     (is (= "scones"
            (decipher "hcqxqqtqljmlzhwiivgbsapaiwcenmyu" "packmyboxwithfivedozenliquorjugs")))))
+
+(deftest row-test
+  (testing "can get a row in the substitution chart"
+    (is (= (map #(str %) (apply list "abcdefghijklmnopqrstuvwxyz"))
+           (row "a")))
+    (is (= (map #(str %) (apply list "mnopqrstuvwxyzabcdefghijkl"))
+           (row "m")))))
