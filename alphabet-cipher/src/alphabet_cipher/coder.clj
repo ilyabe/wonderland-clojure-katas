@@ -9,7 +9,7 @@
   ["a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m"
    "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z"])
 
-(defn indx
+(defn slot
   "Function that returns the index of a letter `l` in `alphabet`.
   Returns -1 if `l` doesn't exist."
   [l]
@@ -18,7 +18,7 @@
 (defn row
   "Function to get the letter `l` row in the substitution chart."
   [l]
-  (let [i (mod (indx l) (count alphabet))]
+  (let [i (mod (slot l) (count alphabet))]
     (concat (drop i alphabet) (take i alphabet))))
 
 (defn encode
