@@ -2,13 +2,13 @@
   (:require [clojure.test :refer :all]
             [alphabet-cipher.coder :refer :all]))
 
-;;(deftest test-encode
-;;  (testing "can encode given a secret keyword"
-;;    (is (= "hmkbxebpxpmyllyrxiiqtoltfgzzv"
-;;           (encode "vigilance" "meetmeontuesdayeveningatseven")))
-;;    (is (= "egsgqwtahuiljgs"
-;;           (encode "scones" "meetmebythetree")))))
-;;
+(deftest test-encode
+  (testing "can encode given a secret keyword"
+    (is (= "hmkbxebpxpmyllyrxiiqtoltfgzzv"
+           (encode "vigilance" "meetmeontuesdayeveningatseven")))
+    (is (= "egsgqwtahuiljgs"
+           (encode "scones" "meetmebythetree")))))
+
 ;;(deftest test-decode
 ;;  (testing "can decode an cyrpted message given a secret keyword"
 ;;    (is (= "meetmeontuesdayeveningatseven"
@@ -30,9 +30,9 @@
     (is (= (map #(str %) (apply list "mnopqrstuvwxyzabcdefghijkl"))
            (row "m")))))
 
-(deftest letter-test
+(deftest encl-test
   (testing "can encode a letter"
-    (are [l s ans] (= ans (letter l s))
+    (are [l s ans] (= ans (encl l s))
       nil nil nil
       nil "a" nil
       "a" nil nil
