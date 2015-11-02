@@ -1,4 +1,5 @@
-(ns alphabet-cipher.coder)
+(ns alphabet-cipher.coder
+  (:require [clojure.math.numeric-tower :refer [abs]]))
 
 (def ^:private alphabet
   "Just the plain old English alphabet for the substitution chart."
@@ -8,13 +9,15 @@
 (defn slot
   "Function that returns the index of a letter `l` in `alphabet`.
   Returns -1 if `l` doesn't exist."
-  [l]
-  (.indexOf alphabet l))
+  [l & abc]
+  (.indexOf (or (first abc) alphabet) l))
 
 (defn row
-  "Function to get the letter `l` row in the substitution chart."
-  [l]
-  (let [i (mod (slot l) (count alphabet))]
+  "Function to get the `x`th row in the substitution chart, where `x`
+  can be an integer index or a string character."
+  [x]
+  (let [cnt (count alphabet)
+        i (if (integer? x) (mod x cnt) (mod (slot x) cnt))]
     (into [] (concat (drop i alphabet) (take i alphabet)))))
 
 (defn encl
@@ -25,6 +28,23 @@
   [l s]
   (if (and (string? l) (string? s) (= (count l) 1) (= (count s) 1))
     ((row l) (slot s))))
+
+(defn find-it
+  "Function that goes through the substitution chart looking for
+  letter `a` at position `p` (also a letter). Returns the letter of
+  that row."
+  [a p & r]
+  (let [abc (row (or (first r) 0))]
+    (if (= a (abc (slot p alphabet)))
+      (first abc)
+      (find-it a p (+ 1 (or (first r) 0))))))
+
+(defn decl
+  "Given the letter from the secret `sec` and the encoded letter `enc`,
+  returns the decoded letter."
+  [sec enc]
+  (if (and (string? a) (string? b) (= (count a) 1) (= (count b) 1))
+    (find-it enc sec)))
 
 (defn encode
   "Given a secret keyword `sec`, encodes the msg."
@@ -37,8 +57,10 @@
           (cons
             (encl (str (first s)) (str (first mk))) (enc (rest s) (rest mk))))) msg mask))))
 
-(defn decode [keyword message]
-  "decodeme")
+(defn decode
+  "Given the secret keyword `sec`, decodes the msg."
+  [sec msg]
+  )
 
 (defn decipher [cipher message]
   "decypherme")
