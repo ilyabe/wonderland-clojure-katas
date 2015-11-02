@@ -43,7 +43,7 @@
   "Given the letter from the secret `sec` and the encoded letter `enc`,
   returns the decoded letter."
   [sec enc]
-  (if (and (string? a) (string? b) (= (count a) 1) (= (count b) 1))
+  (if (and (string? sec) (string? enc) (= (count sec) 1) (= (count enc) 1))
     (find-it enc sec)))
 
 (defn encode
@@ -60,7 +60,13 @@
 (defn decode
   "Given the secret keyword `sec`, decodes the msg."
   [sec msg]
-  )
+  (let [mask (apply str (take (/ (count msg) (count sec)) (repeat sec)))]
+    (apply str
+      ((fn decd [s mk]
+        (if (= 1 (count s))
+          (decl (str (first mk)) (apply str s))
+          (cons
+            (decl (str (first mk)) (str (first s))) (decd (rest s) (rest mk))))) msg mask))))
 
 (defn decipher [cipher message]
   "decypherme")
