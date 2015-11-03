@@ -68,5 +68,23 @@
           (cons
             (decl (str (first mk)) (str (first s))) (decd (rest s) (rest mk))))) msg mask))))
 
-(defn decipher [cipher message]
-  "decypherme")
+(defn keyws
+  "Given an encoded message `cipher` and the original `msg`, extracts a
+  string of the secret keywords."
+  [cipher msg]
+  (apply str
+    (if (not-empty cipher)
+      (cons
+        (find-it (str (first cipher)) (str (first msg)))
+        (keyws (rest cipher) (rest msg))))))
+
+(defn decipher
+  "Given the encoded message `cipher` and the original `msg`, extracts
+  the secret keyword."
+  [cipher msg]
+  ((fn try-enc
+    [sec s n]
+    (let [guess (take n sec)]
+      (if (= cipher (encode (apply str guess) s))
+        (apply str guess)
+        (try-enc sec s (+ 1 n))))) (keyws cipher msg) msg 1))

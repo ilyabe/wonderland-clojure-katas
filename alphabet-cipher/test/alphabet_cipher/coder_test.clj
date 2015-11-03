@@ -16,12 +16,12 @@
     (is (= "meetmebythetree"
            (decode "scones" "egsgqwtahuiljgs")))))
 
-;;(deftest test-decipher
-;;  (testing "can extract the secret keyword given an encrypted message and the original message"
-;;    (is (= "vigilance"
-;;           (decipher "opkyfipmfmwcvqoklyhxywgeecpvhelzg" "thequickbrownfoxjumpsoveralazydog")))
-;;    (is (= "scones"
-;;           (decipher "hcqxqqtqljmlzhwiivgbsapaiwcenmyu" "packmyboxwithfivedozenliquorjugs")))))
+(deftest test-decipher
+  (testing "can extract the secret keyword given an encrypted message and the original message"
+    (is (= "vigilance"
+           (decipher "opkyfipmfmwcvqoklyhxywgeecpvhelzg" "thequickbrownfoxjumpsoveralazydog")))
+    (is (= "scones"
+           (decipher "hcqxqqtqljmlzhwiivgbsapaiwcenmyu" "packmyboxwithfivedozenliquorjugs")))))
 
 (deftest row-test
   (testing "can get a row in the substitution chart"
