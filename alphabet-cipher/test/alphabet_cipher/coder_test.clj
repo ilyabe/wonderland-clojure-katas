@@ -2,21 +2,21 @@
   (:require [clojure.test :refer :all]
             [alphabet-cipher.coder :refer :all]))
 
-(deftest test-encode
+(deftest encode-test
   (testing "can encode given a secret keyword"
     (is (= "hmkbxebpxpmyllyrxiiqtoltfgzzv"
            (encode "vigilance" "meetmeontuesdayeveningatseven")))
     (is (= "egsgqwtahuiljgs"
            (encode "scones" "meetmebythetree")))))
 
-(deftest test-decode
+(deftest decode-test
   (testing "can decode an cyrpted message given a secret keyword"
     (is (= "meetmeontuesdayeveningatseven"
            (decode "vigilance" "hmkbxebpxpmyllyrxiiqtoltfgzzv")))
     (is (= "meetmebythetree"
            (decode "scones" "egsgqwtahuiljgs")))))
 
-(deftest test-decipher
+(deftest decipher-test
   (testing "can extract the secret keyword given an encrypted message and the original message"
     (is (= "vigilance"
            (decipher "opkyfipmfmwcvqoklyhxywgeecpvhelzg" "thequickbrownfoxjumpsoveralazydog")))
